@@ -1,3 +1,95 @@
+
+ /*style pour chaque photographe*********/
+.div-global{
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;}
+ .img-portrait{
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    
+ }
+ .div-img{ height: 120px;
+    width: 120px;margin-right: 2rem;}
+ .info-photograph{
+    margin-left: 2rem; 
+    height: 120px; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+ }
+ .info-photograph h2{
+    color: #D3573C;
+    font-size: 40px;
+    font-weight: 400;
+ }
+ .info-photograph h3{
+    font-size: 20px;
+    font-weight: 400;
+    color:#901C1C;    
+ }
+ p{font-weight: 700;}
+ .conteneur-trier{
+    display: flex;
+ }
+ .list{display: flex;
+    flex-direction: column;
+border-radius: 5px;
+height: 98px;
+width: 85px;}
+ .list button{
+    color: #ffff;
+    background-color: #901C1C;
+    border: none;
+     
+ }
+ ol{background-color: #901C1C;
+   display: none; 
+      }
+      .show{
+        display: block;
+      }
+li{color: #ffff;
+    list-style-type: none;
+    border-top: #FAFAFA solid 1px;
+}
+
+ .conteneur-photo{    
+    height: 155px;
+    width: 30%;
+ }
+ .conteneur-photo h3{
+    font-size:12px ;
+    font-weight:400 ;
+    color:  #901C1C;
+     
+ }
+ .titre-like{
+    
+    display: flex;
+justify-content: space-between;}
+
+.fa-solid{
+    color: #901C1C;
+    font-size: small;
+}
+ 
+ .images{
+height: 140px;
+width: 100%;
+ }
+ .conteneur{
+    display: flex;
+    /*flex-direction: row-reverse;**/
+    flex-wrap: wrap;
+    gap: 20px;
+ }
+
+/*style pour le modal********/
 #contact_modal {
     display: none;
 }
@@ -14,11 +106,15 @@
     color: white;
     padding: 11px;
     width: 170px;
-    height: 70px;
+    height: 66px;
     border: none;
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+}
+video{
+    height: 140px;
+    width: 100%;
 }
 
 .modal {
