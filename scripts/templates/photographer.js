@@ -1,10 +1,10 @@
 function photographerTemplate(data) {
-   
+  
     const { name,id, portrait,city,country,tagline,price } = data;
     const { photographerId, title,image,likes,date ,video} = data;
-     
-    const picture = `../../assets/Sample Photos/Photographers ID Photos/${portrait}`;
-      
+    
+    const picture = `./assets/Sample Photos/Photographers ID Photos/${portrait}`;
+      //const images= `./assets/Sample Photos/Photographers ID Photos/${image}`;
 
     function getUserCardDOM() {
       
@@ -15,7 +15,9 @@ function photographerTemplate(data) {
          
         const img = document.createElement( 'img' ); 
         img.setAttribute("src", picture);
+        img.setAttribute("role","link-image");
         img.setAttribute("alt",`portrait de${name}`);
+        img.setAttribute("aria-label","image lien vers portrait photographe");
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         const h3=document.createElement("h3");
@@ -38,47 +40,50 @@ function photographerTemplate(data) {
         return (article);
        
     }    
-    //const photographHeader=document.querySelector(".photograph-header");
-
-
-    function getGraphersCartDOM(){        
+     
+    function getGraphersCartDOM(){
+             
          const article=document.createElement(`article`);
          const div=document.createElement("div");
          const divGlobal=document.createElement("div");
          divGlobal.setAttribute("class","div-global");
+         divGlobal.setAttribute("aria-label","information photographe et contact");
          div.setAttribute("class","info-photograph");
          const divImg=document.createElement("div");
          divImg.setAttribute("class","div-img"); 
          
          //nom
-        const nom=document.createElement("h2");
+        const nom=document.createElement("h1");
          nom.textContent=name;
          //ville
-         const ville=document.createElement("h3");
-         ville.textContent=`${city},${country}`;
-         
+         const ville=document.createElement("h2");
+         ville.textContent=`${city},${country}`;         
          //tagline
-         const taglineTitre=document.createElement("h4");         
+         const taglineTitre=document.createElement("h3");                 
          taglineTitre.textContent=tagline;
          //boutton
          const boutton=document.createElement("button");
          boutton.textContent="Contactez moi"
          boutton.setAttribute("class","contact_button");
-         boutton.setAttribute("role","button");
-         boutton.setAttribute("aria-pressed","true");
+         boutton.setAttribute("type","button");
+         boutton.setAttribute("role","button-ouvre la fenetre de contact");
+         boutton.setAttribute("aria-label","contactez moi,remplire le formulaire");
+
+         //boutton.setAttribute("aria-pressed","true");
          boutton.setAttribute("onclick","displayModal()");
+         //span pour le boutton
+         boutton.innerHTML+=`<span class="sp-boutton">ouvrir et remplir le formulaire</span>`;
          //image
          const img = document.createElement( 'img' );          
          img.setAttribute("class","img-portrait") 
          img.setAttribute("src", picture);
-         img.setAttribute("alt",`portrait de${name}`);
-          //titre Trier par
-            
+         img.setAttribute("alt",`portrait de ${name}`);
+          //titre Trier par            
            const conteneurTrier=document.createElement("div");           
            conteneurTrier.setAttribute("class","conteneur-trier");
-           conteneurTrier.innerHTML+=`<p>Trier par</p><div class="list"><button class="boutton-trier"  >Popularité</button><ol class="ol"><li class="liste">Date</li><li class="liste">Titre</li></ol></div>`;
-           
-           
+           conteneurTrier.setAttribute("aria-label","trier les media");
+           conteneurTrier.innerHTML+=`<p>Trier par</p><div class="list" aria-haspopup="true" aria-expanded="false"><div class="trier" tabindex="0" aria-label="trier les medias"><button class="boutton-trier">Popularité</button><i class="fa-solid fa-chevron-down"></i></div><ul class="date_titre" role="menutrier" aria-label="trier les medias"><li class="liste"  role="trier" aria-label="trier par date">Date</li><li class="liste" role="trier" aria-label="trier par titre">Titre</li></ul></div>`;
+                      
          div.appendChild(nom);         
         div.appendChild(ville);
         div.appendChild(taglineTitre);
@@ -89,19 +94,18 @@ function photographerTemplate(data) {
         article.appendChild(divGlobal);
         article.appendChild(conteneurTrier);
          
-
         return (article);
     }
-    function getMediaCartDOM(name){ 
- 
- 
+    
+    function getMediaCartDOM(name){
+      
         const firstname=name.split(" ");
+        
         const first=firstname[0].replace("-"," ");          
         let namefolder=firstname[0];
             if(first){
                 namefolder=first;
-            }
-       
+            }       
          const images = `../../assets/Sample Photos/${namefolder}/${image}`;
          const videos = `../../assets/Sample Photos/${namefolder}/${video}`;
        
@@ -110,20 +114,28 @@ function photographerTemplate(data) {
         if(verifierArticle){
           divParent.remove(verifierArticle);  
         }
-         //creer un article
+         //creer un article pour tous les photo
           const article=document.createElement("article");
-          article.setAttribute("class","conteneur-photo");          
- 
+          article.setAttribute("class","conteneur-photo");         
+           
           if(image){
-            const div2=document.createElement("div");
+            const divImg=document.createElement("div");
 
             const img=document.createElement("img");
-            img.setAttribute("class","images");
-            img.setAttribute("alt","tous les images");
+            img.setAttribute("class","affichage images");
+            img.setAttribute("data-id",id);
+            const nameImage=image.replace("."," ");
+            const nameI=nameImage.split(" ");
+             
+                img.setAttribute("alt",`image de ${nameI[0]} qui ouvre une leightbox`);
             img.setAttribute("src",images);
-             article.appendChild(img);
-             //creer un div qui contient titre et like
+             divImg.appendChild(img);
+             divImg.setAttribute("class","div-img-media");
+             article.appendChild(divImg);
+             //creer un div qui contient titre, like et icone
              const div=document.createElement("div");
+             const divLikeIcone=document.createElement(`div`);
+             divLikeIcone.setAttribute("class","div-like-icon");
              div.setAttribute("class","titre-like"); 
              article.appendChild(div);        
             //creer un element titre
@@ -131,23 +143,103 @@ function photographerTemplate(data) {
             titre.textContent=title;
             div.appendChild(titre);
             //creer un element like
-            const like=document.createElement(`h4`);
-            
+            const like=document.createElement(`h4`);            
             like.textContent=likes;
-             
-            div.appendChild(like);
-                          
-               div.innerHTML+=`<i class="fa-solid fa-heart"></i>`;
-             
+            like.setAttribute("class","like");  
+            divLikeIcone.appendChild(like);                          
+            divLikeIcone.innerHTML+=`<i class="fa-solid fa-heart" title="pour mettre un like sur l'image"></i>`;
+            div.appendChild(divLikeIcone);
              
           }else if(video){
            const  video=document.createElement("video");
+           video.controls=true;
             video.setAttribute("src",videos);
+            video.innerHTML=`<source src=${videos} type="video/mp4"/><track kind="subtitles" srclang="fr" />`;
+            video.setAttribute("class","affichage video_photographie");
+            const lienVideo=document.createElement(`a`);
+            //const track=document.createElement(`track`);
+            //track.setAttribute("kind","subtitles");
+            //track.setAttribute("srclang","fr");
+            lienVideo.setAttribute("href",videos);
+            //span hidden
+            lienVideo.innerHTML+=`<span class="sp-video">lien pour la video<span>"`;
+            //video.appendChild(track);
+            video.appendChild(lienVideo);
            article.appendChild(video);
-          }
+           //creer un div qui contient titre, like et icone
+           const div=document.createElement("div");
+           const divLikeIcone=document.createElement(`div`);
+           divLikeIcone.setAttribute("class","div-like-icon");
+           div.setAttribute("class","titre-like"); 
+           article.appendChild(div);        
+          //creer un element titre
+          const titre=document.createElement(`h3`);
+          titre.textContent=title;
+          div.appendChild(titre);
+          //creer un element like
+          const like=document.createElement(`h4`);
           
+          like.setAttribute("class","like");            
+          like.textContent=likes;
+          
+          divLikeIcone.appendChild(like);                          
+          divLikeIcone.innerHTML+=`<i class="fa-solid fa-heart"></i>`;
+          div.appendChild(divLikeIcone);
+          }          
           return article
     }
+     function getModalCartDOM(name){
+      const contactName=document.createElement("div");
+        contactName.setAttribute("class","contenerTitleName");
+        const tContact=document.querySelector(".title-contact");      
+       const namePh=document.createElement("h3");
+       namePh.setAttribute("class","name-photographe");
+       namePh.textContent=name ; 
+        
+        contactName.appendChild(tContact);
+        contactName.appendChild(namePh);
+       return (contactName);
+    } 
+    function getLeightboxDOM(media,name){
+     
+      const firstname=name.split(" ");
+      const first=firstname[0].replace("-"," ");          
+      let namefolder=firstname[0];
+          if(first){
+              namefolder=first;
+          }   
+       const images = `../../assets/Sample Photos/${namefolder}/${image}`;
+         const videos = `../../assets/Sample Photos/${namefolder}/${video}`;         
+       
+        const divSlide=document.createElement("div");
+        divSlide.setAttribute("class",`slider`);
+         
+        const imgSlider=document.createElement("img");
+        const videoSlider=document.createElement("video");
+         if(media.image){
+              imgSlider.setAttribute("class","hidden");
+              imgSlider.setAttribute("src",images);              
+              imgSlider.setAttribute("alt","image carrousel");
+              divSlide.appendChild(imgSlider);
+         }else if(media.video){
+              videoSlider.setAttribute("class","video_leightbox");
+              videoSlider.setAttribute("src",videos);
+              videoSlider.setAttribute("width","300");
+              videoSlider.controls=true;
+              videoSlider.setAttribute("alt","image carrousel");
+              divSlide.appendChild(videoSlider);
+         }
+                 
+        return (divSlide)
+    }
+    //All likes
+    function getLikesCarteDOM(sommeLikes,price){
+      const likesPrice=document.createElement("div");      
+       likesPrice.setAttribute("class","likes-price");
+      likesPrice.innerHTML+=`<div class="likes-icon" role="somme" aria-label="somme likes"><h3 class="all-likes">${sommeLikes}</h3><i class="fa-solid fa-heart" aria-hidden="true"></i></div><h4>${price}€/jour</h4>`
+        
+       return (likesPrice);
+      }
     
-    return { name, picture, getUserCardDOM ,getGraphersCartDOM,getMediaCartDOM}
+    return { name, picture, getUserCardDOM ,getGraphersCartDOM,getMediaCartDOM,getModalCartDOM,getLeightboxDOM,getLikesCarteDOM}
 }

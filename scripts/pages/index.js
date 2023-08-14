@@ -3,14 +3,13 @@
  * function qui recupere les data
  * @returns tableau d'objet data
  */
-async function getPhotographers() {
-       
+async function getPhotographers() {       
     return await fetch("../../data/photographers.json")
     .then((response) => {
         if (!response.ok) {
             throw new Error("not ok");
         }
-        return response.json();
+        return response.json();         
     })
     .then((data) => {
         return data;         
@@ -28,11 +27,11 @@ async function getPhotographers() {
    */
  
 async function displayData(photographers) {
+   
     const photographersSection = document.querySelector(".photographer_section");
    if(photographersSection!=undefined){
-
     photographers.forEach((photographer) => {
-        const photographerModel = photographerTemplate(photographer);
+        const photographerModel = photographerTemplate(photographer);          
         const userCardDOM = photographerModel.getUserCardDOM();
         photographersSection.appendChild(userCardDOM);
     });
@@ -41,7 +40,7 @@ async function displayData(photographers) {
 async function init() {
     // Récupère les datas des photographes
     const {photographers} = await getPhotographers();     
-        displayData(photographers);      
+        displayData(photographers);        
 }
 init();
  
