@@ -12,7 +12,9 @@ function photographerTemplate(data) {
         const lien=document.createElement(`a`)         
          
         lien.setAttribute("href",`photographer.html?identite=${id}`);
-         
+        lien.setAttribute("class","lien-photograph")
+        lien.setAttribute("aria-label","lien vers page de photographe");
+        lien.setAttribute("tabindex","0"); 
         const img = document.createElement( 'img' ); 
         img.setAttribute("src", picture);
         img.setAttribute("role","link-image");
@@ -40,7 +42,10 @@ function photographerTemplate(data) {
         return (article);
        
     }    
-     
+    /**
+     * function qui crée les element de Dom de header
+     * @returns article qui contient tous les element de header
+     */ 
     function getGraphersCartDOM(){
              
          const article=document.createElement(`article`);
@@ -54,27 +59,32 @@ function photographerTemplate(data) {
          
          //nom
         const nom=document.createElement("h1");
+        nom.setAttribute("tabindex","0");
          nom.textContent=name;
          //ville
          const ville=document.createElement("h2");
+         ville.setAttribute("tabindex","0");
          ville.textContent=`${city},${country}`;         
          //tagline
-         const taglineTitre=document.createElement("h3");                 
+         const taglineTitre=document.createElement("h3"); 
+         taglineTitre.setAttribute("tabindex","0");                
          taglineTitre.textContent=tagline;
          //boutton
          const boutton=document.createElement("button");
          boutton.textContent="Contactez moi"
-         boutton.setAttribute("class","contact_button");
+         boutton.setAttribute("class","contact_button contacter_moi");
          boutton.setAttribute("type","button");
-         boutton.setAttribute("role","button-ouvre la fenetre de contact");
+         boutton.setAttribute("role","bouton-ouvre le formulaire de contact");
          boutton.setAttribute("aria-label","contactez moi,remplire le formulaire");
+         boutton.setAttribute("tabindex","0");
 
          //boutton.setAttribute("aria-pressed","true");
          boutton.setAttribute("onclick","displayModal()");
          //span pour le boutton
          boutton.innerHTML+=`<span class="sp-boutton">ouvrir et remplir le formulaire</span>`;
          //image
-         const img = document.createElement( 'img' );          
+         const img = document.createElement( 'img' );
+         img.setAttribute("tabindex","0");          
          img.setAttribute("class","img-portrait") 
          img.setAttribute("src", picture);
          img.setAttribute("alt",`portrait de ${name}`);
@@ -82,7 +92,7 @@ function photographerTemplate(data) {
            const conteneurTrier=document.createElement("div");           
            conteneurTrier.setAttribute("class","conteneur-trier");
            conteneurTrier.setAttribute("aria-label","trier les media");
-           conteneurTrier.innerHTML+=`<p>Trier par</p><div class="list" aria-haspopup="true" aria-expanded="false"><div class="trier" tabindex="0" aria-label="trier les medias"><button class="boutton-trier">Popularité</button><i class="fa-solid fa-chevron-down"></i></div><ul class="date_titre" role="menutrier" aria-label="trier les medias"><li class="liste"  role="trier" aria-label="trier par date">Date</li><li class="liste" role="trier" aria-label="trier par titre">Titre</li></ul></div>`;
+           conteneurTrier.innerHTML+=`<p>Trier par</p><div class="list" aria-haspopup="true" aria-expanded="false"><div class="trier" tabindex="0" aria-label="trier les medias"><button class="boutton-trier">Popularité</button><i class="fa-solid fa-chevron-down"></i></div><ul class="date_titre" role="menutrier" aria-label="trier les medias"><li class="liste"  role="trier" aria-label="trier par date" tabindex="0">Date</li><li class="liste" role="trier" aria-label="trier par titre" tabindex="0">Titre</li></ul></div>`;
                       
          div.appendChild(nom);         
         div.appendChild(ville);
@@ -96,11 +106,15 @@ function photographerTemplate(data) {
          
         return (article);
     }
-    
-    function getMediaCartDOM(name){
+    /**
+     * 
+     * @param {name photographe} name 
+     * @param {index de l'attribut tabindex} index 
+     * @returns article qui content tous les media du photographe
+     */
+    function getMediaCartDOM(name,index){
       
-        const firstname=name.split(" ");
-        
+        const firstname=name.split(" ");         
         const first=firstname[0].replace("-"," ");          
         let namefolder=firstname[0];
             if(first){
@@ -117,10 +131,9 @@ function photographerTemplate(data) {
          //creer un article pour tous les photo
           const article=document.createElement("article");
           article.setAttribute("class","conteneur-photo");         
-           
+            
           if(image){
             const divImg=document.createElement("div");
-
             const img=document.createElement("img");
             img.setAttribute("class","affichage images");
             img.setAttribute("data-id",id);
@@ -147,19 +160,17 @@ function photographerTemplate(data) {
             like.textContent=likes;
             like.setAttribute("class","like");  
             divLikeIcone.appendChild(like);                          
-            divLikeIcone.innerHTML+=`<i class="fa-solid fa-heart" title="pour mettre un like sur l'image"></i>`;
+            divLikeIcone.innerHTML+=`<i class="fa-solid fa-heart" title="pour mettre un like sur l'image" tabindex=0></i>`;
             div.appendChild(divLikeIcone);
              
           }else if(video){
            const  video=document.createElement("video");
-           video.controls=true;
+           //video.controls=true;
             video.setAttribute("src",videos);
             video.innerHTML=`<source src=${videos} type="video/mp4"/><track kind="subtitles" srclang="fr" />`;
             video.setAttribute("class","affichage video_photographie");
             const lienVideo=document.createElement(`a`);
-            //const track=document.createElement(`track`);
-            //track.setAttribute("kind","subtitles");
-            //track.setAttribute("srclang","fr");
+             
             lienVideo.setAttribute("href",videos);
             //span hidden
             lienVideo.innerHTML+=`<span class="sp-video">lien pour la video<span>"`;
@@ -183,11 +194,16 @@ function photographerTemplate(data) {
           like.textContent=likes;
           
           divLikeIcone.appendChild(like);                          
-          divLikeIcone.innerHTML+=`<i class="fa-solid fa-heart"></i>`;
+          divLikeIcone.innerHTML+=`<i class="fa-solid fa-heart" tabindex=0></i>`;
           div.appendChild(divLikeIcone);
           }          
           return article
     }
+    /**
+     * 
+     * @param {name photographe} name 
+     * @returns la div qui contient tous les element du Modal
+     */
      function getModalCartDOM(name){
       const contactName=document.createElement("div");
         contactName.setAttribute("class","contenerTitleName");
@@ -200,8 +216,7 @@ function photographerTemplate(data) {
         contactName.appendChild(namePh);
        return (contactName);
     } 
-    function getLeightboxDOM(media,name){
-     
+    function getLeightboxDOM(media,name){     
       const firstname=name.split(" ");
       const first=firstname[0].replace("-"," ");          
       let namefolder=firstname[0];
@@ -229,6 +244,10 @@ function photographerTemplate(data) {
               videoSlider.setAttribute("alt","image carrousel");
               divSlide.appendChild(videoSlider);
          }
+         const titleImage=document.createElement("h2");
+         titleImage.textContent=title;
+         divSlide.appendChild(titleImage);
+
                  
         return (divSlide)
     }

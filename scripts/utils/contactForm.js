@@ -1,15 +1,30 @@
-const mainWrapper=document.getElementById(`main-wrapper`); 
+ 
+//les element du DOM
 const modal = document.getElementById("contact_modal");
-function displayModal() {    
+const modal2=document.getElementById("leightbox_modal");
+const contenuLeightbox=document.querySelector('.contnerSlider');
+const boutonContacterMoi=document.querySelector(".contacter_moi");
+console.log(boutonContacterMoi)
+
+const mainWrapper=document.getElementById(`main-wrapper`);
+console.log(mainWrapper) 
+ 
+function displayModal() {
+   
 	modal.style.display = "block";
     mainWrapper.setAttribute(`aria-hidden`,true);
     modal.setAttribute(`aria-hidden`,false);
+    
 }
 
 function closeModal() {
-    const modal = document.getElementById("contact_modal");
+    
     modal.style.display = "none";
     modal.setAttribute(`aria-hidden`,true);
+}
+function closeLeigthBox(){
+    modal2.style.display = "none";
+    modal2.setAttribute(`aria-hidden`,true);
 }
 //les element du DOM
 let firstname=document.getElementById("firstname");
