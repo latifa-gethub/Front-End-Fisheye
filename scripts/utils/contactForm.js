@@ -4,29 +4,33 @@ const modal = document.getElementById("contact_modal");
 const modal2=document.getElementById("leightbox_modal");
 const contenuLeightbox=document.querySelector('.contnerSlider');
 const boutonContacterMoi=document.querySelector(".contacter_moi");
-console.log(boutonContacterMoi)
-
+const fermerModale=document.querySelector(".img-fermer"); 
+const body=document.getElementById("body");
 const mainWrapper=document.getElementById(`main-wrapper`);
-console.log(mainWrapper) 
+  
  
-function displayModal() {
+function displayModal1() {
    
 	modal.style.display = "block";
+    mainWrapper.style.display="none"
     mainWrapper.setAttribute(`aria-hidden`,true);
     modal.setAttribute(`aria-hidden`,false);
-    
+      
+    fermerModale.focus();      
 }
 
-function closeModal() {
-    
+function closeModal() {    
     modal.style.display = "none";
+    mainWrapper.style.display="block"
     modal.setAttribute(`aria-hidden`,true);
+    
 }
 function closeLeigthBox(){
     modal2.style.display = "none";
     modal2.setAttribute(`aria-hidden`,true);
+    mainWrapper.style.display="block"
 }
-//les element du DOM
+//les element du DOM pour la moda-contactl
 let firstname=document.getElementById("firstname");
 let myform=document.getElementById(`Myform`);
 let error=document.querySelector(`.errorF`);
@@ -70,9 +74,7 @@ email.addEventListener("input", function (e) {
         validate++;
         errorE.innerHTML = "";
     }
-    /*if(validate=3){
-        console.log("tout est bien");
-        }*/
+     
 });
 
 myform.addEventListener(`submit`,function(e){

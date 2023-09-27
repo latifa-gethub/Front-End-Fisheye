@@ -13,13 +13,13 @@ function photographerTemplate(data) {
          
         lien.setAttribute("href",`photographer.html?identite=${id}`);
         lien.setAttribute("class","lien-photograph")
-        lien.setAttribute("aria-label","lien vers page de photographe");
+       
         lien.setAttribute("tabindex","0"); 
         const img = document.createElement( 'img' ); 
         img.setAttribute("src", picture);
         img.setAttribute("role","link-image");
         img.setAttribute("alt",`portrait de${name}`);
-        img.setAttribute("aria-label","image lien vers portrait photographe");
+        img.setAttribute("aria-label",`slogan de ${name} lien vers page de photographe`);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
         const h3=document.createElement("h3");
@@ -79,7 +79,7 @@ function photographerTemplate(data) {
          boutton.setAttribute("tabindex","0");
 
          //boutton.setAttribute("aria-pressed","true");
-         boutton.setAttribute("onclick","displayModal()");
+         boutton.setAttribute("onclick","displayModal1()");
          //span pour le boutton
          boutton.innerHTML+=`<span class="sp-boutton">ouvrir et remplir le formulaire</span>`;
          //image
@@ -207,9 +207,10 @@ function photographerTemplate(data) {
      function getModalCartDOM(name){
       const contactName=document.createElement("div");
         contactName.setAttribute("class","contenerTitleName");
-        const tContact=document.querySelector(".title-contact");      
+        const tContact=document.querySelector("#title-contact");      
        const namePh=document.createElement("h3");
        namePh.setAttribute("class","name-photographe");
+       namePh.setAttribute("tabindex","0");
        namePh.textContent=name ; 
         
         contactName.appendChild(tContact);

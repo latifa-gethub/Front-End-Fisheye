@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -10,9 +10,9 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>Fisheye - photographe </title>
   </head>
-  <body>
-    <header role="banner">
-      <img src="assets/images/logo.png" class="logo" role="img" alt="logo de Fisheye" />
+  <body id="body">
+    <header>
+      <img src="assets/images/logo.png" class="logo" alt="logo de Fisheye">
     </header>
     <main id="main-wrapper" aria-hidden="false">
       <div class="photograph-header">
@@ -21,10 +21,10 @@
        
     </main>
     <div id="contact_modal">
-			<div class="modal" >
+			<div class="modal" aria-hidden="true" role="dialog" aria-describedby="title-contact">
 				<header class="Contactez-moi">
-          <h2 class="title-contact">Contactez-moi</h2>
-          <img class="img-fermer" src="assets/icons/close.svg" role="fermer" aria-label="fermer modal" alt="icone pour fermer le modal" onclick="closeModal()" />
+          <h2 id="title-contact" tabindex="0">Contactez-moi</h2>
+          <img class="img-fermer" src="assets/icons/close.svg" tabindex="0"  aria-label="fermer modal" alt="icone pour fermer le modal" onclick="closeModal()" >
            
         </header>
           
@@ -50,11 +50,11 @@
 				</form>
 			</div>
 		</div>
-    <div id="leightbox_modal">
-			<div class="modal2" >
+    <div id="leightbox_modal" >
+			<div class="modal2" aria-hidden="true" role="dialog">
 				<header class="Close">
            
-          <img class="img-fermer" src="assets/icons/close.svg" role="fermer" aria-label="fermer modal" alt="icone pour fermer le modal" onclick="closeLeigthBox()" />
+          <img class="img-fermer" tabindex="0" src="assets/icons/close.svg"   aria-label="fermer modal" alt="icone pour fermer le modal" onclick="closeLeigthBox()" >
            
         </header>
           

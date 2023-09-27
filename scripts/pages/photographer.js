@@ -3,13 +3,10 @@
 import * as index from "./index.js"
 
 //les elements de DOM
-const modal = document.querySelector(".modal");
+const mainWrapper=document.getElementById(`main-wrapper`); 
 const modal2=document.querySelector(".modal2");
-const contactModal = document.getElementById("leightbox_modal");
-
-const fermerModal = document.querySelector(".img-fermer");
-
-const boutonContacterMoi=document.querySelector(".contacter_moi");
+const leigthBoxModal = document.getElementById("leightbox_modal");
+const contact_modal = document.getElementById("contact_modal"); 
 
 /**
  * 
@@ -79,7 +76,7 @@ async function displayDataMedia(mediaTrier, name, choixTri, price) {
    mediaParChoix.forEach((element,index) => {
       const mediaId = photographerTemplate(element);
       const mediaCartDOM = mediaId.getMediaCartDOM(name,index);
-      console.log(mediaCartDOM)
+       
       mediaCartDOM.setAttribute("tabindex",0)
       contneur.appendChild(mediaCartDOM);
       photographHeader.appendChild(contneur);
@@ -87,20 +84,14 @@ async function displayDataMedia(mediaTrier, name, choixTri, price) {
    })
 
    //leightbox
-   const photographie = document.querySelectorAll(".conteneur-photo");
+   const photographie = document.querySelectorAll(".affichage");
 
    for (let i = 0; i < photographie.length; i++) {
-      photographie[i].addEventListener(`click`, function () {
-         //const photographieId=photographie[i].dataset.id; 
-         console.log(contactModal);             
-         contactModal.style.display = "block";
-         modal.style.backgroundColor = "beige";
-         modal2.style.backgroundColor = "beige";
-        // const myform = document.querySelector("#Myform");
-         //myform.style.display = "none";
-        // const div = document.querySelector(".contenerTitleName");
-        // div.style.display = "none";
-         //displayleightbox(mediaTrier, name);
+      photographie[i].addEventListener(`click`, function () {     
+                     
+        leigthBoxModal.style.display = "block";
+        modal2.style.backgroundColor = "beige";
+         mainWrapper.style.display="none"  
          showSlides(i)
       });
    }
@@ -108,7 +99,7 @@ async function displayDataMedia(mediaTrier, name, choixTri, price) {
 async function displayModal(photographe, name) {
 
    const headerContact = document.querySelector(".Contactez-moi");
-
+ 
    const photograph = photographerTemplate(photographe);
    const headerNameCartDOM = photograph.getModalCartDOM(name);
    headerContact.appendChild(headerNameCartDOM);
@@ -116,7 +107,7 @@ async function displayModal(photographe, name) {
 async function displayleightbox(mediaid, namephotographer) {
 
    if (document.querySelector(".contnerSlider")) {
-      modal.removeChild(document.querySelector(".contnerSlider"))
+      modal2.removeChild(document.querySelector(".contnerSlider"))
    }
    const contnerSlider = document.createElement("div");
    contnerSlider.setAttribute("class", "contnerSlider");
@@ -130,7 +121,7 @@ async function displayleightbox(mediaid, namephotographer) {
 
    modal2.appendChild(contnerSlider);
 
-   //evenement au click sur le bouton
+   //evenement au click sur le bouton next precedent
    const buttonPrecedent = document.querySelector(".btn_precedent");
    const buttonNext = document.querySelector(".btn_next");
    const sliders = Array.from(document.querySelectorAll(".slider"));
@@ -141,22 +132,12 @@ async function displayleightbox(mediaid, namephotographer) {
    buttonNext.addEventListener("click", function () {
       let slide = document.querySelector(".active-slider");
       showSlides(sliders.indexOf(slide) + 1);
-   });
-   //au click sur courrent image 
-   const photographie = document.querySelectorAll(".affichage");
-   const listPopularite=document.querySelector(".list")
-   console.log(listPopularite)
-   for (let i = 0; i < photographie.length; i++) {
-      photographie[i].addEventListener(`click`, function () {
-         showSlides(i);
-        listPopularite.style.zIndex=0;
-      })
-   }
+   });     
 
 }
 
 function showSlides(n) {
-   console.log(n);
+    
    const sliders = document.querySelectorAll(`.slider`);
 
    if (n < 0) { n = sliders.length - 1 }
@@ -171,16 +152,16 @@ function showSlides(n) {
 async function displayLikes(price) {
    const contnerLikes = document.createElement("article");
    const contneur = document.querySelector(".conteneur");
-   console.log(contneur);
+  
    contnerLikes.setAttribute("class", "contener-likes");
-   console.log(contnerLikes);
+   
    const allLikes = document.querySelectorAll(".like");
    let sommeLikes = 0;
    for (let i = 0; i < allLikes.length; i++) {
       let premierLike = parseInt(allLikes[i].innerHTML);
       sommeLikes = sommeLikes + premierLike;
    }
-   console.log(sommeLikes);
+   
    const likesTemplate = photographerTemplate(sommeLikes);
    const likeCarteDOM = likesTemplate.getLikesCarteDOM(sommeLikes, price);
    contnerLikes.appendChild(likeCarteDOM);
@@ -211,41 +192,24 @@ async function displayLikes(price) {
          }
          const sommelikesInitiale = document.querySelector(".all-likes");
          sommelikesInitiale.innerHTML = sommeLikes
-         console.log(sommeLikes);
+     
       })
    }
 }
-
-/*document.addEventListener("keydown",(event) => {
-     const nomTouche = event.key;
-
-     if (nomTouche === 39) {
-       // Pas d'alerte si seule la touche Control est pressée.
-       return;
-     }
-     if (event.ctrlKey) {
-       // Même si event.key n'est pas 'Control' (par ex., 'a' is pressed),
-       // event.ctrlKey peut être true si la touche Ctrl est pressée dans le même temps.
-       alert(`Combinaison de ctrlKey + ${nomTouche}`);
-     } else {
-       alert(`Touche pressée ${nomTouche}`);
-     }
-   },
-   false,
- );*/
-
  function getChildNodesModal() {
-   return contactModal.childNodes;
+   return contact_modal.childNodes;
  }
    
  if (window.location.href.includes("photographer.html")) {
    document.addEventListener("keydown", function (event) {
      // Verify if in the list of style modal a property display have value block on page
-     if (getComputedStyle(contactModal).getPropertyValue("display") !== "none") {
+     if (getComputedStyle(contact_modal).getPropertyValue("display") !== "none") {
        const isTabPressed = event.key === "Tab" || event.key === 9;
        const isArrowPressed =
          event.key === "ArrowRight" ||
          event.key === 39 ||
+         event.key===27||
+         event.key==="Escape"||
          event.key === "ArrowLeft";
        // If a keydown is "ArrowRight" or "ArrowLeft" send "event" to the function "navigateWithArrows" in modal
        if (isArrowPressed) {
@@ -269,11 +233,9 @@ async function displayLikes(price) {
          focusableElementsSelector = '[tabindex="0"]:not(h1,img,.hidden)';
        }
        // First focusable Element from the list of node
-       const firstFocusableElement = contactModal.querySelectorAll(
-         focusableElementsSelector
-       )[0];
+       const firstFocusableElement = contact_modal.querySelectorAll(focusableElementsSelector)[0];
        // NodeList of all elements
-       const focusableContent = contactModal.querySelectorAll(
+       const focusableContent = contact_modal.querySelectorAll(
          focusableElementsSelector
        );
        // Last focusable Element
@@ -281,11 +243,7 @@ async function displayLikes(price) {
          focusableContent[focusableContent.length - 1];
  
        // Send "event" and "first - last" Focusable elements
-       navigateFocusableElements(
-         event,
-         firstFocusableElement,
-         lastFocusableElement
-       );
+       navigateFocusableElements(event,firstFocusableElement,lastFocusableElement);
      } else {
        // When modal is display none, navigate with keyboard arrows on photographer page
        navigateWithArrows(event);
@@ -293,13 +251,12 @@ async function displayLikes(price) {
    });
    // The first focusable element of each modal
    const firstFocusableElement =
-     contactModal.querySelectorAll('[tabindex="0"]')[0];
+   contact_modal.querySelectorAll('[tabindex="0"]')[0];
    // Focus on first element
    if (firstFocusableElement) {
      firstFocusableElement.focus();
    }
- }
- 
+ } 
  /**
   * Function to get focus on the elements
   * with TAB
@@ -307,11 +264,7 @@ async function displayLikes(price) {
   * @param {object} firstFocusableElement
   * @param {object} lastFocusableElement
   */
- function navigateFocusableElements(
-   event,
-   firstFocusableElement,
-   lastFocusableElement
- ) {
+ function navigateFocusableElements(event,firstFocusableElement,lastFocusableElement) {
    // if shift + tab pressed
    if (event.shiftKey) {
      if (document.activeElement === firstFocusableElement) {
@@ -338,62 +291,66 @@ async function displayLikes(price) {
   */
  function navigateWithArrows(event) {
    let focusableElements;
-   if (getComputedStyle(contactModal).getPropertyValue("display") === "none") {
+   if (getComputedStyle(contact_modal).getPropertyValue("display") === "none" && getComputedStyle(leigthBoxModal).getPropertyValue("display") === "none") {
      // Navigation on photographer page with keyboard arrows
      const bodyElementPhotographer = document.getElementsByTagName("body")[0];
      // Creer array of HTML Element which fulfills the condition
      focusableElements = Array.from(
        bodyElementPhotographer.querySelectorAll(
-         '[tabindex="0"]:not(#contact_modal [tabindex="0"])'
-       )
-     );
-   } else {
-     focusableElements = Array.from(
-       contactModal.querySelectorAll(
-         'button,input,textarea,[tabindex]:not([tabindex="-1"])'
-       )
-     );
-   }
-   const liImage = document
-     .getElementById("contact_modal")
-     .querySelectorAll(".conteneur-photo");
- 
-   if (liImage.length === 0) {
-     if (event.key === "ArrowRight" || event.key === 39) {
-       focusIndex++;
-       focusIndex =
-         ((focusIndex % focusableElements.length) + focusableElements.length) %
-         focusableElements.length;
-       focusableElements[focusIndex].focus();
-     }
-     if (event.key === "ArrowLeft" || event.key === 37) {
-       focusIndex--;
-       focusIndex =
-         ((focusIndex % focusableElements.length) + focusableElements.length) %
-         focusableElements.length;
-       focusableElements[focusIndex].focus();
-     }
-     if (event.key==="Enter" || event.key === 13) {
-        let focusableElements
-        focusableElements=Array.from(document.querySelectorAll(".conteneur-photo"))
+         '[tabindex="0"]:not(#contact_modal [tabindex="0"])'));
          
+   } else if(getComputedStyle(contact_modal).getPropertyValue("display") === "block") {
+     focusableElements = Array.from(contact_modal.querySelectorAll('img,button,input,textarea,[tabindex]:not([tabindex="-1"])'));
+     
+    }else if(getComputedStyle(leigthBoxModal).getPropertyValue("display") === "block"){
+      focusableElements = Array.from(leigthBoxModal.querySelectorAll('img,button,[tabindex]:not([tabindex="-1"])'));
+      
+    }
+        
+    
+        if (event.key === "ArrowRight" || event.key === 39) {
+          
+          focusIndex++;
+          focusIndex =
+            ((focusIndex % focusableElements.length) + focusableElements.length) %
+            focusableElements.length;
+          focusableElements[focusIndex].focus();
+        }
+          if (event.key === "ArrowLeft" || event.key === 37) {
+            focusIndex--;
+            focusIndex =
+              ((focusIndex % focusableElements.length) + focusableElements.length) %
+              focusableElements.length;
+            focusableElements[focusIndex].focus();
+          }
+     if (event.key==="Enter" || event.key === 13) {
+       
+        let focusableElements
+       if(event.target.classList.contains("conteneur-photo")){
+        focusableElements=Array.from(document.querySelectorAll(".conteneur-photo"))
         const X= focusableElements.indexOf(event.target)
           
-          contactModal.style.display = "block";
-           
-            fermerModal.style.Color = "#901C1C";
-            const myform = document.querySelector("#Myform");
-            myform.style.display = "none";
-            const div = document.querySelector(".contenerTitleName");
-            div.style.display = "none";
-            
-            showSlides(X)       
-          /** */   
+        leigthBoxModal.style.display = "block";
+        modal2.style.backgroundColor = "beige";
+         mainWrapper.style.display="none"  
          
-    }
-   }
+            showSlides(X)    
+       } else if(event.target.classList.contains("contacter_moi")){        
+         displayModal1() 
+           
+       }
+                
+  }
+    if (event.key==="Escape" || event.key === 27) {
+     
+        if(event.target.classList.contains("img-fermer")){                     
+          closeModal()
+          closeLeigthBox()
+      }
+      }   
+    
+   
  }
-
 
 async function init() {
    // Récupère les datas des photographes

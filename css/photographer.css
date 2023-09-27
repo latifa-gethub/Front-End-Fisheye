@@ -206,6 +206,9 @@ width: 100%;
     gap: 2px;
 }
 /*style pour le modal********/
+.no-scroll{
+    overflow: hidden;
+ }
 #contact_modal,#leightbox_modal {
     display: none;
     padding-left: 12rem;
