@@ -2,7 +2,7 @@
 
 import * as index from "./index.js"
 
-//les elements de DOM
+//les elements du DOM
 const mainWrapper=document.getElementById(`main-wrapper`); 
 const modal2=document.querySelector(".modal2");
 const leigthBoxModal = document.getElementById("leightbox_modal");
@@ -12,12 +12,11 @@ const contact_modal = document.getElementById("contact_modal");
  * 
  * @param {*} photographe 
  * @param {*} media 
- * @param {*} name 
+ * @param {nom de photographe} name 
  */
 async function displayDataPhotographer(photographe, media, name) {
 
    const photographHeader = document.querySelector(".photograph-header");
-
    const photograph = photographerTemplate(photographe);
    const photographCartDOM = photograph.getGraphersCartDOM();
    photographHeader.appendChild(photographCartDOM);
@@ -83,7 +82,7 @@ async function displayDataMedia(mediaTrier, name, choixTri, price) {
 
    })
 
-   //leightbox
+   //au click sur une photographie la leightbox s'affiche
    const photographie = document.querySelectorAll(".affichage");
 
    for (let i = 0; i < photographie.length; i++) {
@@ -96,6 +95,7 @@ async function displayDataMedia(mediaTrier, name, choixTri, price) {
       });
    }
 }
+//la fonction qui fait appelle au template pour creer les element du Dom de Modal
 async function displayModal(photographe, name) {
 
    const headerContact = document.querySelector(".Contactez-moi");
@@ -104,6 +104,7 @@ async function displayModal(photographe, name) {
    const headerNameCartDOM = photograph.getModalCartDOM(name);
    headerContact.appendChild(headerNameCartDOM);
 }
+//la fonction pour creer les elements du Leitgbox
 async function displayleightbox(mediaid, namephotographer) {
 
    if (document.querySelector(".contnerSlider")) {
@@ -135,7 +136,7 @@ async function displayleightbox(mediaid, namephotographer) {
    });     
 
 }
-
+//la fonction qui gére le défilement sur la Leightbox
 function showSlides(n) {
     
    const sliders = document.querySelectorAll(`.slider`);
@@ -149,6 +150,8 @@ function showSlides(n) {
    sliders[n].classList.remove('unactive-slider');
    sliders[n].classList.add('active-slider');
 }
+//la fonction ou on calcule la somme des likes et appelle
+// template pour les elements du Dom de likes
 async function displayLikes(price) {
    const contnerLikes = document.createElement("article");
    const contneur = document.querySelector(".conteneur");
@@ -202,7 +205,7 @@ async function displayLikes(price) {
    
  if (window.location.href.includes("photographer.html")) {
    document.addEventListener("keydown", function (event) {
-     // Verify if in the list of style modal a property display have value block on page
+     //verifier si dans le style modal la proprieté display a la valeur block
      if (getComputedStyle(contact_modal).getPropertyValue("display") !== "none") {
        const isTabPressed = event.key === "Tab" || event.key === 9;
        const isArrowPressed =
@@ -211,11 +214,11 @@ async function displayLikes(price) {
          event.key===27||
          event.key==="Escape"||
          event.key === "ArrowLeft";
-       // If a keydown is "ArrowRight" or "ArrowLeft" send "event" to the function "navigateWithArrows" in modal
+       // si keydown est "ArrowRight" ou "ArrowLeft" envoie "event" au function "navigateWithArrows" sur modal
        if (isArrowPressed) {
          navigateWithArrows(event);
        }
-       // if tab not pressed go out
+        
        if (!isTabPressed) {
          return;
        }
@@ -258,7 +261,7 @@ async function displayLikes(price) {
    }
  } 
  /**
-  * Function to get focus on the elements
+  * la fonction qui met des focus sur les elements
   * with TAB
   * @param {object} event
   * @param {object} firstFocusableElement
@@ -270,34 +273,32 @@ async function displayLikes(price) {
      if (document.activeElement === firstFocusableElement) {
        // add focus for the last focusable element
        lastFocusableElement.focus();
-       // Prevent the default behavior of Tab, scrolling down in the page
+       // empécher l'evenement par defaut qui peut se produire par tab
        event.preventDefault();
      }
    } else {
      // if tab key is pressed
      if (document.activeElement === lastFocusableElement) {
-       // if focused has reached to last focusable element then focus first focusable element after pressing tab
+       // si le focus a accé à last focusable element alors focus first focusable element aprés est pressing tab
        firstFocusableElement.focus();
        event.preventDefault();
      }
    }
  }
- 
- // Variable to increment or decrement focus for all page photographer
+ //variable qui incremente et decremente sur toute la page photographer 
  let focusIndex = -1;
  /**
-  * Function to navigate on photographer page with keyboard arrows
+  * fonction pour naviguer dans photographer page avec le clavier
   * @param {object} event
   */
  function navigateWithArrows(event) {
    let focusableElements;
    if (getComputedStyle(contact_modal).getPropertyValue("display") === "none" && getComputedStyle(leigthBoxModal).getPropertyValue("display") === "none") {
-     // Navigation on photographer page with keyboard arrows
+     // Naviguer sur photographer page avec keyboard arrows
      const bodyElementPhotographer = document.getElementsByTagName("body")[0];
-     // Creer array of HTML Element which fulfills the condition
-     focusableElements = Array.from(
-       bodyElementPhotographer.querySelectorAll(
-         '[tabindex="0"]:not(#contact_modal [tabindex="0"])'));
+     
+     //creer le tableau de html element pour realiser la condition      
+     focusableElements = Array.from(bodyElementPhotographer.querySelectorAll('[tabindex="0"]:not(#contact_modal [tabindex="0"])'));
          
    } else if(getComputedStyle(contact_modal).getPropertyValue("display") === "block") {
      focusableElements = Array.from(contact_modal.querySelectorAll('img,button,input,textarea,[tabindex]:not([tabindex="-1"])'));
@@ -305,11 +306,8 @@ async function displayLikes(price) {
     }else if(getComputedStyle(leigthBoxModal).getPropertyValue("display") === "block"){
       focusableElements = Array.from(leigthBoxModal.querySelectorAll('img,button,[tabindex]:not([tabindex="-1"])'));
       
-    }
-        
-    
-        if (event.key === "ArrowRight" || event.key === 39) {
-          
+    }     
+        if (event.key === "ArrowRight" || event.key === 39) {          
           focusIndex++;
           focusIndex =
             ((focusIndex % focusableElements.length) + focusableElements.length) %
@@ -323,8 +321,7 @@ async function displayLikes(price) {
               focusableElements.length;
             focusableElements[focusIndex].focus();
           }
-     if (event.key==="Enter" || event.key === 13) {
-       
+     if (event.key==="Enter" || event.key === 13) {       
         let focusableElements
        if(event.target.classList.contains("conteneur-photo")){
         focusableElements=Array.from(document.querySelectorAll(".conteneur-photo"))
@@ -332,8 +329,7 @@ async function displayLikes(price) {
           
         leigthBoxModal.style.display = "block";
         modal2.style.backgroundColor = "beige";
-         mainWrapper.style.display="none"  
-         
+         mainWrapper.style.display="none"         
             showSlides(X)    
        } else if(event.target.classList.contains("contacter_moi")){        
          displayModal1() 
@@ -341,21 +337,19 @@ async function displayLikes(price) {
        }
                 
   }
-    if (event.key==="Escape" || event.key === 27) {
-     
+    if (event.key==="Escape" || event.key === 27) {    
         if(event.target.classList.contains("img-fermer")){                     
           closeModal()
           closeLeigthBox()
       }
       }   
-    
-   
  }
-
+//la fonction qui initialise les données et récupere les data
 async function init() {
-   // Récupère les datas des photographes
+   // Récupère les datas des photographes et les medias
 
    const { photographers, media } = await index.getPhotographers();
+  
    let params = new URLSearchParams(window.location.search);
    let idphotographe = params.get('identite');
    const photographe = photographers.find((userphotograph) => userphotograph.id == parseInt(idphotographe));

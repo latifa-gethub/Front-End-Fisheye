@@ -17,15 +17,9 @@ async function getPhotographers() {
     .catch((error) => {
         console.error("error", error);
     });
-
-    // et bien retourner le tableau photographers seulement une fois récupéré
-    
+   
 }
-  /**
-   * 
-   * @param {object} photographers 
-   */
- 
+//la fonction pour fabriquer la liste des photographes   
 async function displayData(photographers) {
    
     const photographersSection = document.querySelector(".photographer_section");
@@ -38,8 +32,9 @@ async function displayData(photographers) {
    } 
 }
 async function init() {
-    // Récupère les datas des photographes
-    const {photographers} = await getPhotographers();     
+    // Récupère les photographes du data
+    const {photographers} = await getPhotographers(); 
+       
         displayData(photographers);        
 }
 init();
