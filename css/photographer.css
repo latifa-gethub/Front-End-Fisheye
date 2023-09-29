@@ -1,4 +1,7 @@
-
+*{
+    box-sizing: border-box;
+    max-width: 1300px;
+}
  /*style pour chaque photographe*********/
 .div-global{
     height: 300px;
@@ -93,8 +96,8 @@ li{color: #ffff;
 .likes-price{
     position: fixed;
     
-    left: 40rem;
-    bottom:2rem ;
+    left: 55rem;
+    bottom:1rem ;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -164,7 +167,7 @@ hidden{
 }
 /*les media**************/
  .conteneur-photo{    
-    height: 155px;
+    height: 290px;
     width: 30%;
  }
  .conteneur-photo:focus-visible{
@@ -177,20 +180,24 @@ hidden{
  }
 
  .titre-like{
-    
+    height: 15%;
     display: flex;
-justify-content: space-between;}
+justify-content: space-between;
+align-items: center;
+}
 
 .fa-solid{
     color: #901C1C;
     font-size: small;
 }
  .div-img-media{
-  height: 140px;
+  height: 85%;
   width: 100%;
  }
  .images{
-height: 140px;
+object-fit: cover; 
+object-position: center;  
+height: 100%;
 width: 100%;
  }
  .conteneur{
@@ -211,7 +218,7 @@ width: 100%;
  }
 #contact_modal,#leightbox_modal {
     display: none;
-    padding-left: 12rem;
+    padding-left: 21rem;
 }
 
 .photograph-header {
@@ -242,8 +249,12 @@ width: 100%;
   border: 0;
 }
 .errorL, .errorF, .errorE{color: red;}
+.div-video{
+     height: 85%;
+    width: 100%;
+}
 .video_photographie{
-    height: 140px;
+    height: 100%;
     width: 100%;
 }
 

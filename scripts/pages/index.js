@@ -19,7 +19,7 @@ async function getPhotographers() {
     });
    
 }
-//la fonction pour fabriquer la liste des photographes   
+//la fonction pour générer la liste des photographes   
 async function displayData(photographers) {
    
     const photographersSection = document.querySelector(".photographer_section");
@@ -34,7 +34,7 @@ async function displayData(photographers) {
 async function init() {
     // Récupère les photographes du data
     const {photographers} = await getPhotographers(); 
-       
+        
         displayData(photographers);        
 }
 init();

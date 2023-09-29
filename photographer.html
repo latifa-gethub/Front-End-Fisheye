@@ -12,7 +12,10 @@
   </head>
   <body id="body">
     <header>
-      <img src="assets/images/logo.png" class="logo" alt="logo de Fisheye">
+      <a href="index.html">
+       <img src="assets/images/logo.png" class="logo" tabindex="0" alt="logo de Fisheye"> 
+      </a>
+      
     </header>
     <main id="main-wrapper" aria-hidden="false">
       <div class="photograph-header">
@@ -34,7 +37,7 @@
             <input type="text" id="firstname" name="first" aria-describedby="first" minlength="2" required><br>
             <span class="errorF"></span>
             <label for="last">Nom</label>
-            <input class="text-control" type="text" id="last" name="last" aria-describedby="last"><br>
+            <input class="text-control" type="text" id="last" name="last" aria-describedby="last" minlength="2" required><br>
             <span class="errorL"></span>
             <div class="formData">
             <label for="email">E-mail</label><br>

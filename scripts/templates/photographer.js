@@ -8,7 +8,7 @@ function photographerTemplate(data) {
          
     /**
      * 
-     * @returns article ou il ya tous les données de la page d'accueil
+     * @returns article ou il ya tous les element du Dom pour la liste des photographe
      */ 
     function getUserCardDOM() {
       
@@ -43,8 +43,7 @@ function photographerTemplate(data) {
         article.appendChild(h3);
         article.appendChild(h3Tagline);
         article.appendChild(h4); 
-        return (article);
-      
+        return (article);      
     }    
     /**
      * function qui crée les element de Dom de header
@@ -118,7 +117,7 @@ function photographerTemplate(data) {
      */
     function getMediaCartDOM(name,index){
       
-        const firstname=name.split(" ");         
+        const firstname=name.split(" ");                
         const first=firstname[0].replace("-"," ");          
         let namefolder=firstname[0];
             if(first){
@@ -169,6 +168,8 @@ function photographerTemplate(data) {
              
           }else if(video){
            const  video=document.createElement("video");
+           const divVideo=document.createElement("div");
+           divVideo.setAttribute("class","div-video");
            //video.controls=true;
             video.setAttribute("src",videos);
             video.innerHTML=`<source src=${videos} type="video/mp4"/><track kind="subtitles" srclang="fr" />`;
@@ -180,7 +181,8 @@ function photographerTemplate(data) {
             lienVideo.innerHTML+=`<span class="sp-video">lien pour la video<span>"`;
              
             video.appendChild(lienVideo);
-           article.appendChild(video);
+            divVideo.appendChild(video);  
+           article.appendChild(divVideo);
            //creer un div qui contient titre, like et icone
            const div=document.createElement("div");
            const divLikeIcone=document.createElement(`div`);

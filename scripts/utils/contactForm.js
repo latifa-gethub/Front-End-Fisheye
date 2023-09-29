@@ -57,8 +57,9 @@ firstname.addEventListener("input", function (e) {
 lastname.addEventListener("input",function(e){
     let RegExp = /^[a-zA-Z-\s]+$/;
     if (RegExp.test(e.target.value) == false || e.target.value.length < 2) {
+        console.log(e.target)
         errorL.innerHTML = "Veuillez entrez au moins deux caracteres";
-        validate--;
+        validate=0;
     } else {
         validate++;
         errorL.innerHTML = "";
@@ -68,6 +69,7 @@ lastname.addEventListener("input",function(e){
 email.addEventListener("input", function (e) {
     let RegExp = /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}$/;
     if (RegExp.test(e.target.value) == false) {
+       
         errorE.innerHTML = "Veuillez entrez un mail valide";
         validate--;
     } else {
@@ -81,8 +83,7 @@ myform.addEventListener(`submit`,function(e){
    e.preventDefault();
    
 console.log(`le prenom: ${firstname.value} le nom:${lastname.value} l'email:${email.value}`);
-let input=document.querySelector(`.text-control`);
- input.value=""
+  
 })
 
 

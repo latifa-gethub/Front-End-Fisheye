@@ -95,7 +95,8 @@ async function displayDataMedia(mediaTrier, name, choixTri, price) {
       });
    }
 }
-//la fonction qui fait appelle au template pour creer les element du Dom de Modal
+//la fonction qui fait appelle au getModalcartDom qui est ds template 
+//pour creer les element du Dom de Modal
 async function displayModal(photographe, name) {
 
    const headerContact = document.querySelector(".Contactez-moi");
@@ -312,14 +313,31 @@ async function displayLikes(price) {
           focusIndex =
             ((focusIndex % focusableElements.length) + focusableElements.length) %
             focusableElements.length;
-          focusableElements[focusIndex].focus();
+          focusableElements[focusIndex].focus();          
+           
+          const sliders = Array.from(document.querySelectorAll(".slider"));            
+          
+          if(event.target.classList.contains("btn_next")){
+            console.log(event.target)
+            focusableElements=Array.from(document.querySelectorAll(".btn_next"))
+            let slide = document.querySelector(".active-slider");
+            showSlides(sliders.indexOf(slide) + 1);
+         }
+         
         }
           if (event.key === "ArrowLeft" || event.key === 37) {
             focusIndex--;
-            focusIndex =
-              ((focusIndex % focusableElements.length) + focusableElements.length) %
-              focusableElements.length;
-            focusableElements[focusIndex].focus();
+           // focusIndex =
+             // ((focusIndex % focusableElements.length) + focusableElements.length) %
+             // focusableElements.length;
+           // focusableElements[focusIndex].focus();
+            const sliders = Array.from(document.querySelectorAll(".slider"));
+         if(event.target.classList.contains("btn_precedent")){
+            console.log(event.target)
+            focusableElements=Array.from(document.querySelectorAll(".btn_precedent"))
+            let slide = document.querySelector(".active-slider");
+            showSlides(sliders.indexOf(slide) - 1);
+         }
           }
      if (event.key==="Enter" || event.key === 13) {       
         let focusableElements
