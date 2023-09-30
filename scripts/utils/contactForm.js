@@ -57,7 +57,7 @@ firstname.addEventListener("input", function (e) {
 lastname.addEventListener("input",function(e){
     let RegExp = /^[a-zA-Z-\s]+$/;
     if (RegExp.test(e.target.value) == false || e.target.value.length < 2) {
-        console.log(e.target)
+       
         errorL.innerHTML = "Veuillez entrez au moins deux caracteres";
         validate=0;
     } else {

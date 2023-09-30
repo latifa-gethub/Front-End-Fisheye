@@ -318,7 +318,7 @@ async function displayLikes(price) {
           const sliders = Array.from(document.querySelectorAll(".slider"));            
           
           if(event.target.classList.contains("btn_next")){
-            console.log(event.target)
+             
             focusableElements=Array.from(document.querySelectorAll(".btn_next"))
             let slide = document.querySelector(".active-slider");
             showSlides(sliders.indexOf(slide) + 1);
